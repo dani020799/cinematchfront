@@ -52,6 +52,66 @@
     </div>
 
     <script>
+        // Provide header interactions for dynamically-inserted header.html
+        function initHeaderInteractions() {
+            const userDropdown = document.querySelector('.user-dropdown');
+            if (!userDropdown) return;
+
+            // Define global toggle function if not already defined
+            if (typeof window.toggleUserDropdown !== 'function') {
+                window.toggleUserDropdown = function () {
+                    const isActive = userDropdown.classList.contains('active');
+                    if (isActive) {
+                        userDropdown.classList.remove('active');
+                        document.body.classList.remove('dropdown-open');
+                    } else {
+                        userDropdown.classList.add('active');
+                        document.body.classList.add('dropdown-open');
+                    }
+                };
+            }
+
+            // Bind outside click and Escape key once
+            if (!window.__headerDropdownBound) {
+                document.addEventListener('click', function (event) {
+                    if (!userDropdown.contains(event.target)) {
+                        userDropdown.classList.remove('active');
+                        document.body.classList.remove('dropdown-open');
+                    }
+                });
+
+                document.addEventListener('keydown', function (event) {
+                    if (event.key === 'Escape') {
+                        userDropdown.classList.remove('active');
+                        document.body.classList.remove('dropdown-open');
+                    }
+                });
+
+                window.__headerDropdownBound = true;
+            }
+
+            // Accessibility attributes and live updates
+            const userButton = userDropdown.querySelector('.user-button');
+            if (userButton) {
+                userButton.setAttribute('aria-expanded', 'false');
+                userButton.setAttribute('aria-haspopup', 'true');
+
+                const observer = new MutationObserver(function (mutations) {
+                    mutations.forEach(function (mutation) {
+                        if (mutation.attributeName === 'class') {
+                            const isActive = userDropdown.classList.contains('active');
+                            userButton.setAttribute('aria-expanded', String(isActive));
+                        }
+                    });
+                });
+
+                observer.observe(userDropdown, {
+                    attributes: true,
+                    attributeFilter: ['class']
+                });
+            }
+        }
+
         // Function to load the header content with cache-busting for development
         async function loadHeader() {
             try {
@@ -62,6 +122,9 @@
                 }
                 const headerContent = await response.text();
                 document.getElementById('header-placeholder').innerHTML = headerContent;
+
+                // After injecting the header, initialize its interactions
+                initHeaderInteractions();
             } catch (error) {
                 console.error('Error loading header:', error);
                 document.getElementById('header-placeholder').innerHTML = 
