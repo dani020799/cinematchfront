@@ -10,44 +10,39 @@
         body {
             font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
         }
-        
         /* Ensure content doesn't get hidden under fixed header */
-        .content-wrapper {
-            padding-top: 4rem;
-        }
+        .content-wrapper { padding-top: 4rem; }
+
+        /* Hide horizontal scrollbars while keeping scroll functionality */
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
     </style>
 </head>
 <body class="bg-gray-50">
     <!-- Header placeholder -->
     <div id="header-placeholder"></div>
-    
+
     <!-- Main content -->
     <div class="content-wrapper">
         <main class="container mx-auto px-4 py-8">
             <h2 class="text-2xl font-bold text-gray-800 mb-4">Welcome to Cinematch</h2>
             <p class="text-gray-600 mb-6">Your personalized movie and TV show recommendation platform.</p>
-            
-            <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+
+            <!-- Featured Movies -->
+            <section class="bg-white rounded-lg shadow-sm p-6 mb-6">
                 <h3 class="text-xl font-semibold text-gray-800 mb-3">Featured Movies</h3>
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                    <!-- Movie cards would go here -->
-                    <div class="bg-gray-100 rounded-md h-48 flex items-center justify-center text-gray-400">Movie Card</div>
-                    <div class="bg-gray-100 rounded-md h-48 flex items-center justify-center text-gray-400">Movie Card</div>
-                    <div class="bg-gray-100 rounded-md h-48 flex items-center justify-center text-gray-400">Movie Card</div>
-                    <div class="bg-gray-100 rounded-md h-48 flex items-center justify-center text-gray-400">Movie Card</div>
+                <div class="overflow-x-auto scrollbar-hide">
+                    <div id="featured-row" class="flex flex-nowrap gap-4 pb-2"></div>
                 </div>
-            </div>
-            
-            <div class="bg-white rounded-lg shadow-sm p-6">
+            </section>
+
+            <!-- Trending TV Shows -->
+            <section class="bg-white rounded-lg shadow-sm p-6">
                 <h3 class="text-xl font-semibold text-gray-800 mb-3">Trending TV Shows</h3>
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                    <!-- TV Show cards would go here -->
-                    <div class="bg-gray-100 rounded-md h-48 flex items-center justify-center text-gray-400">TV Show Card</div>
-                    <div class="bg-gray-100 rounded-md h-48 flex items-center justify-center text-gray-400">TV Show Card</div>
-                    <div class="bg-gray-100 rounded-md h-48 flex items-center justify-center text-gray-400">TV Show Card</div>
-                    <div class="bg-gray-100 rounded-md h-48 flex items-center justify-center text-gray-400">TV Show Card</div>
+                <div class="overflow-x-auto scrollbar-hide">
+                    <div id="trending-row" class="flex flex-nowrap gap-4 pb-2"></div>
                 </div>
-            </div>
+            </section>
         </main>
     </div>
 
@@ -132,8 +127,61 @@
             }
         }
 
-        // Load the header when the page loads
-        document.addEventListener('DOMContentLoaded', loadHeader);
+        // Fetch a single media-card.html template (no frameworks, no arrays)
+        async function fetchCardTemplate() {
+            const cacheBuster = `v=${Date.now()}`;
+            const res = await fetch(`media-card.html?${cacheBuster}`, { cache: 'no-store' });
+            if (!res.ok) throw new Error(`Failed to load media-card.html: ${res.status}`);
+            return res.text();
+        }
+
+        // Insert multiple copies (5) of the fetched template into a row
+        async function initMediaRows() {
+            try {
+                const cardHTML = await fetchCardTemplate();
+
+                // Featured Movies: insert 5 cards
+                const featuredRow = document.getElementById('featured-row');
+                if (featuredRow) {
+                    for (let i = 0; i < 5; i++) {
+                        const t = document.createElement('template');
+                        t.innerHTML = cardHTML.trim();
+                        const card = t.content.firstElementChild;
+                        if (card) {
+                            // Make card compact and responsive; avoid template's width constraints
+                            card.classList.remove('w-full');
+                            card.classList.remove('max-w-[12rem]');
+                            card.classList.add('flex-none', 'w-[160px]', 'sm:w-[176px]', 'md:w-[192px]');
+                            featuredRow.appendChild(card);
+                        }
+                    }
+                }
+
+                // Trending TV Shows: insert 5 cards
+                const trendingRow = document.getElementById('trending-row');
+                if (trendingRow) {
+                    for (let i = 0; i < 5; i++) {
+                        const t = document.createElement('template');
+                        t.innerHTML = cardHTML.trim();
+                        const card = t.content.firstElementChild;
+                        if (card) {
+                            card.classList.remove('w-full');
+                            card.classList.remove('max-w-[12rem]');
+                            card.classList.add('flex-none', 'w-[160px]', 'sm:w-[176px]', 'md:w-[192px]');
+                            trendingRow.appendChild(card);
+                        }
+                    }
+                }
+            } catch (err) {
+                console.error('Error rendering media rows:', err);
+            }
+        }
+
+        // Load the header and initialize media rows when the page loads
+        document.addEventListener('DOMContentLoaded', function () {
+            loadHeader();
+            initMediaRows();
+        });
     </script>
 </body>
 </html>
