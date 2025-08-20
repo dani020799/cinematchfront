@@ -211,6 +211,7 @@
       <a href="/popular" class="bg-white/90 text-indigo-800 font-medium px-4 py-2 rounded-full text-sm shadow-sm transition duration-200 hover:bg-white hover:shadow-md ring-1 ring-white/60">⭐ Popular</a>
       <a href="/discover" class="bg-white/90 text-indigo-800 font-medium px-4 py-2 rounded-full text-sm shadow-sm transition duration-200 hover:bg-white hover:shadow-md ring-1 ring-white/60">🔍 Discover</a>
       <a href="/rateroll" class="bg-white/90 text-indigo-800 font-medium px-4 py-2 rounded-full text-sm shadow-sm transition duration-200 hover:bg-white hover:shadow-md ring-1 ring-white/60">🎲 Rate & Roll</a>
+      <a href="/themes.html" class="bg-gradient-to-r from-purple-500 to-blue-500 text-white font-medium px-4 py-2 rounded-full text-sm shadow-sm transition duration-200 hover:from-purple-600 hover:to-blue-600 hover:shadow-md ring-1 ring-purple-300/60">🎨 Themes</a>
       <button type="button" onclick="getRecommendation()" class="bg-white/90 text-indigo-800 font-medium px-4 py-2 rounded-full text-sm shadow-sm transition duration-200 hover:bg-white hover:shadow-md ring-1 ring-white/60">🎯 Get Recommendation</button>
     </div>
 
@@ -275,6 +276,44 @@
 </header>
 
 <script>
+    // Apply theme to header when loaded
+    function applyHeaderTheme() {
+        const savedTheme = localStorage.getItem('cinematch-theme') || 'purple-blue';
+        const header = document.querySelector('header');
+        
+        const themes = {
+            'cinematic-dark': 'bg-gray-800/90',
+            'color-pop': 'bg-pink-900/90',
+            'frosted-glass': 'bg-white/80',
+            'purple-blue': 'bg-[#3a3a72]/90',
+            'radial-glow': 'bg-orange-800/90',
+            'ocean-breeze': 'bg-teal-800/90',
+            'frosted-glass-enhanced': 'bg-white/80',
+            'sunset-flow': 'bg-orange-900/90',
+            'cinematic-dark-enhanced': 'bg-gray-800/90',
+            'retro-neon': 'bg-fuchsia-900/90',
+            'midnight-blend': 'bg-gray-800/90',
+            'cyber-grape': 'bg-[#2c003e]/90',
+            'dark-frost': 'bg-black/90',
+            'deep-space': 'bg-[#1a0735]/90',
+            'slate-fade': 'bg-slate-800/90'
+        };
+        
+        // Remove existing background classes
+        header.className = header.className.replace(/bg-\S+/g, '').trim();
+        
+        // Apply theme-specific header background
+        const themeClass = themes[savedTheme] || themes['purple-blue'];
+        const bgClasses = themeClass.split(' ');
+        bgClasses.forEach(cls => header.classList.add(cls));
+        
+        // Ensure other classes remain
+        header.classList.add('fixed', 'top-0', 'left-0', 'right-0', 'z-50', 'border-b', 'border-white/20', 'shadow-2xl', 'backdrop-blur-xl', 'text-white');
+    }
+    
+    // Apply theme when header loads
+    document.addEventListener('DOMContentLoaded', applyHeaderTheme);
+    
     function toggleUserDropdown() {
         const userDropdown = document.querySelector('.user-dropdown');
         const isActive = userDropdown.classList.contains('active');
