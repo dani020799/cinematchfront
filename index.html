@@ -20,12 +20,12 @@
         
         /* Cinematic video section enhancements */
         #cinematic-video {
-            background: linear-gradient(135deg, rgba(251, 146, 60, 0.4) 0%, rgba(239, 68, 68, 0.3) 50%, rgba(147, 51, 234, 0.4) 100%);
+            background: linear-gradient(135deg, rgba(65, 121, 243, 0.4) 0%, rgba(111, 75, 212, 0.3) 50%, rgba(164, 75, 194, 0.4) 100%);
         }
         
         /* Curved transition SVG */
         .curved-transition {
-            fill: linear-gradient(135deg, #fb923c, #ef4444, #3b82f6);
+            fill: linear-gradient(135deg, #4179f3, #6f4bd4, #a44bc2);
         }
         
         /* Floating button animations */
@@ -39,7 +39,7 @@
         }
     </style>
 </head>
-<body class="bg-gradient-to-br from-orange-400 via-red-500 to-blue-900 min-h-screen text-white">
+<body class="bg-gradient-to-br from-[#4179f3] via-[#6f4bd4] to-[#a44bc2] min-h-screen text-white">
     <!-- Header placeholder -->
     <div id="header-placeholder"></div>
 
@@ -47,14 +47,14 @@
     <div class="content-wrapper">
         <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <div class="mb-6">
-                <h2 class="text-4xl font-bold text-white tracking-tight drop-shadow-lg bg-gradient-to-r from-orange-200 to-yellow-200 bg-clip-text text-transparent">Welcome to Cinematch</h2>
-                <p class="text-orange-100 mt-3 text-lg drop-shadow-md">Your personalized movie and TV show recommendation platform.</p>
+                <h2 class="text-4xl font-bold text-white tracking-tight drop-shadow-lg bg-gradient-to-r from-blue-200 to-purple-200 bg-clip-text text-transparent">Welcome to Cinematch</h2>
+                <p class="text-blue-100 mt-3 text-lg drop-shadow-md">Your personalized movie and TV show recommendation platform.</p>
             </div>
 
             <!-- Cinematic Top Video Section -->
             <section id="cinematic-video" class="relative overflow-hidden mb-16 transition-all duration-700 ease-in-out transform">
                 <!-- Gradient Background with Curved Bottom -->
-                <div class="bg-gradient-to-br from-orange-300/40 via-red-400/30 to-purple-600/40 backdrop-blur-xl relative">
+                <div class="bg-gradient-to-br from-blue-300/40 via-purple-400/30 to-indigo-600/40 backdrop-blur-xl relative">
                     <!-- Close Button -->
                     <button id="close-video-btn" class="absolute top-6 right-6 w-10 h-10 bg-black/50 backdrop-blur-md rounded-full border border-white/40 text-white hover:bg-black/70 hover:scale-110 transition-all duration-300 flex items-center justify-center text-lg font-bold z-20 shadow-2xl">
                         ✕
@@ -64,8 +64,8 @@
                     <div class="px-6 sm:px-8 lg:px-12 pt-8 pb-16">
                         <!-- Video Title Above -->
                         <div class="text-center mb-6">
-                            <h2 class="text-3xl sm:text-4xl font-bold text-white drop-shadow-2xl bg-gradient-to-r from-orange-200 via-yellow-200 to-pink-200 bg-clip-text text-transparent mb-2">Featured Cinematic Experience</h2>
-                            <p class="text-orange-100/90 text-lg drop-shadow-md">Immerse yourself in the latest blockbuster</p>
+                            <h2 class="text-3xl sm:text-4xl font-bold text-white drop-shadow-2xl bg-gradient-to-r from-blue-200 via-purple-200 to-pink-200 bg-clip-text text-transparent mb-2">Featured Cinematic Experience</h2>
+                            <p class="text-blue-100/90 text-lg drop-shadow-md">Immerse yourself in the latest blockbuster</p>
                         </div>
                         
                         <!-- Video Frame with Glass Effect -->
@@ -90,9 +90,9 @@
                         <svg class="absolute bottom-0 w-full h-16" viewBox="0 0 1200 120" preserveAspectRatio="none">
                             <defs>
                                 <linearGradient id="curveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                                    <stop offset="0%" style="stop-color:#fb923c;stop-opacity:1" />
-                                    <stop offset="50%" style="stop-color:#ef4444;stop-opacity:1" />
-                                    <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:1" />
+                                    <stop offset="0%" style="stop-color:#4179f3;stop-opacity:1" />
+                                    <stop offset="50%" style="stop-color:#6f4bd4;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#a44bc2;stop-opacity:1" />
                                 </linearGradient>
                             </defs>
                             <path d="M0,0 C300,120 900,120 1200,0 L1200,120 L0,120 Z" fill="url(#curveGradient)"></path>
@@ -103,14 +103,14 @@
             
             <!-- Floating Reopen Button (Hidden by default) -->
             <div id="reopen-video-btn" class="fixed top-20 left-1/2 transform -translate-x-1/2 z-30 hidden animate-float">
-                <button class="w-12 h-12 bg-gradient-to-r from-orange-500 to-red-500 backdrop-blur-md rounded-full border-2 border-white/30 text-white hover:scale-110 hover:shadow-2xl transition-all duration-300 flex items-center justify-center text-xl shadow-lg">
+                <button class="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 backdrop-blur-md rounded-full border-2 border-white/30 text-white hover:scale-110 hover:shadow-2xl transition-all duration-300 flex items-center justify-center text-xl shadow-lg">
                     ↓
                 </button>
             </div>
 
             <!-- 1) Trending Now -->
             <section class="bg-white/20 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/30 p-8 mb-8 hover:bg-white/25 transition-all duration-300">
-                <h3 class="text-2xl font-bold text-white mb-4 drop-shadow-md bg-gradient-to-r from-orange-300 to-yellow-300 bg-clip-text text-transparent">Trending Now</h3>
+                <h3 class="text-2xl font-bold text-white mb-4 drop-shadow-md bg-gradient-to-r from-blue-300 to-purple-300 bg-clip-text text-transparent">Trending Now</h3>
                 <div class="overflow-x-auto overflow-y-hidden snap-x snap-mandatory scroll-smooth touch-pan-x cursor-grab" data-hscroll>
                     <div id="trending-row" class="flex flex-nowrap gap-x-4 pb-2 min-w-max"></div>
                 </div>
@@ -119,9 +119,9 @@
             <!-- 2) Top Rated with toggle -->
             <section class="bg-white/20 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/30 p-8 mb-8 hover:bg-white/25 transition-all duration-300">
                 <div class="flex items-center justify-between mb-4">
-                    <h3 class="text-2xl font-bold text-white drop-shadow-md bg-gradient-to-r from-orange-300 to-yellow-300 bg-clip-text text-transparent">Top Rated</h3>
+                    <h3 class="text-2xl font-bold text-white drop-shadow-md bg-gradient-to-r from-blue-300 to-purple-300 bg-clip-text text-transparent">Top Rated</h3>
                     <div class="inline-flex rounded-xl border border-white/40 overflow-hidden bg-black/30 backdrop-blur-md" role="group" aria-label="Top Rated Toggle">
-                        <button id="btn-top-movies" type="button" class="px-4 py-2 text-sm font-semibold bg-orange-500 text-white focus:outline-none focus:ring-2 focus:ring-orange-300 transition-all duration-200">Movies</button>
+                        <button id="btn-top-movies" type="button" class="px-4 py-2 text-sm font-semibold bg-blue-500 text-white focus:outline-none focus:ring-2 focus:ring-blue-300 transition-all duration-200">Movies</button>
                         <button id="btn-top-tv" type="button" class="px-4 py-2 text-sm font-semibold bg-transparent text-white hover:bg-white/20 focus:outline-none transition-all duration-200">TV Shows</button>
                     </div>
                 </div>
@@ -132,7 +132,7 @@
 
             <!-- 3) Now Playing -->
             <section class="bg-white/20 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/30 p-8 mb-8 hover:bg-white/25 transition-all duration-300">
-                <h3 class="text-2xl font-bold text-white mb-4 drop-shadow-md bg-gradient-to-r from-orange-300 to-yellow-300 bg-clip-text text-transparent">Now Playing</h3>
+                <h3 class="text-2xl font-bold text-white mb-4 drop-shadow-md bg-gradient-to-r from-blue-300 to-purple-300 bg-clip-text text-transparent">Now Playing</h3>
                 <div class="overflow-x-auto overflow-y-hidden snap-x snap-mandatory scroll-smooth touch-pan-x cursor-grab" data-hscroll>
                     <div id="now-playing-row" class="flex flex-nowrap gap-x-6 pb-3 min-w-max"></div>
                 </div>
