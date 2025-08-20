@@ -15,7 +15,7 @@
         .scrollbar-hide::-webkit-scrollbar { display: none; }
     </style>
 </head>
-<body class="bg-gradient-to-br from-purple-700 via-indigo-600 to-cyan-500 min-h-screen text-white">
+<body class="bg-gradient-to-br from-orange-400 via-red-500 to-blue-900 min-h-screen text-white">
     <!-- Header placeholder -->
     <div id="header-placeholder"></div>
 
@@ -23,37 +23,37 @@
     <div class="content-wrapper">
         <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <div class="mb-6">
-                <h2 class="text-3xl font-bold text-gray-800 tracking-tight">Welcome to Cinematch</h2>
-                <p class="text-gray-700 mt-2">Your personalized movie and TV show recommendation platform.</p>
+                <h2 class="text-4xl font-bold text-white tracking-tight drop-shadow-lg bg-gradient-to-r from-orange-200 to-yellow-200 bg-clip-text text-transparent">Welcome to Cinematch</h2>
+                <p class="text-orange-100 mt-3 text-lg drop-shadow-md">Your personalized movie and TV show recommendation platform.</p>
             </div>
 
             <!-- 1) Trending Now -->
-            <section class="bg-white/90 backdrop-blur-md rounded-xl shadow-md p-6 mb-6">
-                <h3 class="text-xl font-semibold text-gray-800 mb-3">Trending Now</h3>
+            <section class="bg-white/20 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/30 p-8 mb-8 hover:bg-white/25 transition-all duration-300">
+                <h3 class="text-2xl font-bold text-white mb-4 drop-shadow-md bg-gradient-to-r from-orange-300 to-yellow-300 bg-clip-text text-transparent">Trending Now</h3>
                 <div class="overflow-x-auto overflow-y-hidden snap-x snap-mandatory scroll-smooth touch-pan-x cursor-grab" data-hscroll>
                     <div id="trending-row" class="flex flex-nowrap gap-x-4 pb-2 min-w-max"></div>
                 </div>
             </section>
 
             <!-- 2) Top Rated with toggle -->
-            <section class="bg-white/90 backdrop-blur-md rounded-xl shadow-md p-6 mb-6">
-                <div class="flex items-center justify-between mb-3">
-                    <h3 class="text-xl font-semibold text-gray-800">Top Rated</h3>
-                    <div class="inline-flex rounded-lg border border-gray-200/80 overflow-hidden bg-white/60" role="group" aria-label="Top Rated Toggle">
-                        <button id="btn-top-movies" type="button" class="px-3 py-1.5 text-sm font-medium bg-indigo-600 text-white focus:outline-none focus:ring-2 focus:ring-indigo-300">Movies</button>
-                        <button id="btn-top-tv" type="button" class="px-3 py-1.5 text-sm font-medium bg-transparent text-gray-700 hover:bg-white/70 focus:outline-none">TV Shows</button>
+            <section class="bg-white/20 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/30 p-8 mb-8 hover:bg-white/25 transition-all duration-300">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-2xl font-bold text-white drop-shadow-md bg-gradient-to-r from-orange-300 to-yellow-300 bg-clip-text text-transparent">Top Rated</h3>
+                    <div class="inline-flex rounded-xl border border-white/40 overflow-hidden bg-black/30 backdrop-blur-md" role="group" aria-label="Top Rated Toggle">
+                        <button id="btn-top-movies" type="button" class="px-4 py-2 text-sm font-semibold bg-orange-500 text-white focus:outline-none focus:ring-2 focus:ring-orange-300 transition-all duration-200">Movies</button>
+                        <button id="btn-top-tv" type="button" class="px-4 py-2 text-sm font-semibold bg-transparent text-white hover:bg-white/20 focus:outline-none transition-all duration-200">TV Shows</button>
                     </div>
                 </div>
                 <div class="overflow-x-auto overflow-y-hidden snap-x snap-mandatory scroll-smooth touch-pan-x cursor-grab" data-hscroll>
-                    <div id="top-rated-row" class="flex flex-nowrap gap-x-4 pb-2 min-w-max"></div>
+                    <div id="top-rated-row" class="flex flex-nowrap gap-x-6 pb-3 min-w-max"></div>
                 </div>
             </section>
 
             <!-- 3) Now Playing -->
-            <section class="bg-white/90 backdrop-blur-md rounded-xl shadow-md p-6">
-                <h3 class="text-xl font-semibold text-gray-800 mb-3">Now Playing</h3>
+            <section class="bg-white/20 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/30 p-8 mb-8 hover:bg-white/25 transition-all duration-300">
+                <h3 class="text-2xl font-bold text-white mb-4 drop-shadow-md bg-gradient-to-r from-orange-300 to-yellow-300 bg-clip-text text-transparent">Now Playing</h3>
                 <div class="overflow-x-auto overflow-y-hidden snap-x snap-mandatory scroll-smooth touch-pan-x cursor-grab" data-hscroll>
-                    <div id="now-playing-row" class="flex flex-nowrap gap-x-4 pb-2 min-w-max"></div>
+                    <div id="now-playing-row" class="flex flex-nowrap gap-x-6 pb-3 min-w-max"></div>
                 </div>
             </section>
         </main>
