@@ -13,6 +13,30 @@
         /* Hide scrollbars while keeping scroll functionality */
         .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
         .scrollbar-hide::-webkit-scrollbar { display: none; }
+        
+        /* Aspect ratio utilities for video container */
+        .aspect-w-16 { position: relative; padding-bottom: 56.25%; /* 16:9 aspect ratio */ }
+        .aspect-w-16 > * { position: absolute; height: 100%; width: 100%; top: 0; right: 0; bottom: 0; left: 0; }
+        
+        /* Cinematic video section enhancements */
+        #cinematic-video {
+            background: linear-gradient(135deg, rgba(251, 146, 60, 0.4) 0%, rgba(239, 68, 68, 0.3) 50%, rgba(147, 51, 234, 0.4) 100%);
+        }
+        
+        /* Curved transition SVG */
+        .curved-transition {
+            fill: linear-gradient(135deg, #fb923c, #ef4444, #3b82f6);
+        }
+        
+        /* Floating button animations */
+        @keyframes float {
+            0%, 100% { transform: translateX(-50%) translateY(0px); }
+            50% { transform: translateX(-50%) translateY(-10px); }
+        }
+        
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
     </style>
 </head>
 <body class="bg-gradient-to-br from-orange-400 via-red-500 to-blue-900 min-h-screen text-white">
@@ -25,6 +49,63 @@
             <div class="mb-6">
                 <h2 class="text-4xl font-bold text-white tracking-tight drop-shadow-lg bg-gradient-to-r from-orange-200 to-yellow-200 bg-clip-text text-transparent">Welcome to Cinematch</h2>
                 <p class="text-orange-100 mt-3 text-lg drop-shadow-md">Your personalized movie and TV show recommendation platform.</p>
+            </div>
+
+            <!-- Cinematic Top Video Section -->
+            <section id="cinematic-video" class="relative overflow-hidden mb-16 transition-all duration-700 ease-in-out transform">
+                <!-- Gradient Background with Curved Bottom -->
+                <div class="bg-gradient-to-br from-orange-300/40 via-red-400/30 to-purple-600/40 backdrop-blur-xl relative">
+                    <!-- Close Button -->
+                    <button id="close-video-btn" class="absolute top-6 right-6 w-10 h-10 bg-black/50 backdrop-blur-md rounded-full border border-white/40 text-white hover:bg-black/70 hover:scale-110 transition-all duration-300 flex items-center justify-center text-lg font-bold z-20 shadow-2xl">
+                        ✕
+                    </button>
+                    
+                    <!-- Video Container with Padding -->
+                    <div class="px-6 sm:px-8 lg:px-12 pt-8 pb-16">
+                        <!-- Video Title Above -->
+                        <div class="text-center mb-6">
+                            <h2 class="text-3xl sm:text-4xl font-bold text-white drop-shadow-2xl bg-gradient-to-r from-orange-200 via-yellow-200 to-pink-200 bg-clip-text text-transparent mb-2">Featured Cinematic Experience</h2>
+                            <p class="text-orange-100/90 text-lg drop-shadow-md">Immerse yourself in the latest blockbuster</p>
+                        </div>
+                        
+                        <!-- Video Frame with Glass Effect -->
+                        <div class="max-w-5xl mx-auto">
+                            <div class="bg-white/10 backdrop-blur-lg rounded-3xl p-4 shadow-2xl border border-white/20">
+                                <div class="aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden shadow-inner">
+                                    <iframe 
+                                        src="https://www.youtube.com/embed/dQw4w9WgXcQ?si=example" 
+                                        title="Featured Movie Trailer" 
+                                        frameborder="0" 
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                        allowfullscreen
+                                        class="w-full h-full rounded-2xl">
+                                    </iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Curved Bottom Transition -->
+                    <div class="absolute bottom-0 left-0 right-0 h-16">
+                        <svg class="absolute bottom-0 w-full h-16" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="curveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" style="stop-color:#fb923c;stop-opacity:1" />
+                                    <stop offset="50%" style="stop-color:#ef4444;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
+                            <path d="M0,0 C300,120 900,120 1200,0 L1200,120 L0,120 Z" fill="url(#curveGradient)"></path>
+                        </svg>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Floating Reopen Button (Hidden by default) -->
+            <div id="reopen-video-btn" class="fixed top-20 left-1/2 transform -translate-x-1/2 z-30 hidden animate-float">
+                <button class="w-12 h-12 bg-gradient-to-r from-orange-500 to-red-500 backdrop-blur-md rounded-full border-2 border-white/30 text-white hover:scale-110 hover:shadow-2xl transition-all duration-300 flex items-center justify-center text-xl shadow-lg">
+                    ↓
+                </button>
             </div>
 
             <!-- 1) Trending Now -->
@@ -205,6 +286,68 @@
             });
         }
 
+        // Cinematic Video Toggle Functionality
+        function initCinematicVideo() {
+            const closeVideoBtn = document.getElementById('close-video-btn');
+            const reopenVideoBtn = document.getElementById('reopen-video-btn');
+            const cinematicVideo = document.getElementById('cinematic-video');
+            
+            // Close video function
+            function closeVideo() {
+                if (cinematicVideo) {
+                    cinematicVideo.style.transform = 'translateY(-100%)';
+                    cinematicVideo.style.opacity = '0';
+                    
+                    setTimeout(() => {
+                        cinematicVideo.style.display = 'none';
+                        if (reopenVideoBtn) {
+                            reopenVideoBtn.classList.remove('hidden');
+                            setTimeout(() => {
+                                reopenVideoBtn.style.opacity = '1';
+                                reopenVideoBtn.style.transform = 'translateX(-50%) scale(1)';
+                            }, 100);
+                        }
+                    }, 700);
+                }
+            }
+            
+            // Reopen video function
+            function reopenVideo() {
+                if (cinematicVideo && reopenVideoBtn) {
+                    reopenVideoBtn.style.opacity = '0';
+                    reopenVideoBtn.style.transform = 'translateX(-50%) scale(0.8)';
+                    
+                    setTimeout(() => {
+                        reopenVideoBtn.classList.add('hidden');
+                        cinematicVideo.style.display = 'block';
+                        
+                        setTimeout(() => {
+                            cinematicVideo.style.transform = 'translateY(0)';
+                            cinematicVideo.style.opacity = '1';
+                        }, 50);
+                    }, 300);
+                }
+            }
+            
+            // Event listeners
+            if (closeVideoBtn) {
+                closeVideoBtn.addEventListener('click', closeVideo);
+            }
+            
+            if (reopenVideoBtn) {
+                reopenVideoBtn.addEventListener('click', reopenVideo);
+                // Initialize reopen button styles
+                reopenVideoBtn.style.opacity = '0';
+                reopenVideoBtn.style.transform = 'translateX(-50%) scale(0.8)';
+                reopenVideoBtn.style.transition = 'all 0.3s ease';
+            }
+            
+            // Initialize cinematic video styles
+            if (cinematicVideo) {
+                cinematicVideo.style.transition = 'all 0.7s cubic-bezier(0.4, 0, 0.2, 1)';
+            }
+        }
+
         // Initialize page
         document.addEventListener('DOMContentLoaded', async function () {
             loadHeader();
@@ -216,6 +359,7 @@
             ]);
             initTopRatedToggle();
             enhanceHorizontalScroll();
+            initCinematicVideo();
         });
     </script>
 </body>
