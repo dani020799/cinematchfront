@@ -18,14 +18,34 @@
         .aspect-w-16 { position: relative; padding-bottom: 56.25%; /* 16:9 aspect ratio */ }
         .aspect-w-16 > * { position: absolute; height: 100%; width: 100%; top: 0; right: 0; bottom: 0; left: 0; }
         
+        /* Custom gradient utilities */
+        .bg-gradient-radial { background: radial-gradient(circle at center, var(--tw-gradient-stops)); }
+        
         /* Cinematic video section enhancements */
         #cinematic-video {
-            background: linear-gradient(135deg, rgba(251, 146, 60, 0.4) 0%, rgba(239, 68, 68, 0.3) 50%, rgba(147, 51, 234, 0.4) 100%);
+            background: linear-gradient(135deg, rgba(65, 121, 243, 0.4) 0%, rgba(111, 75, 212, 0.3) 50%, rgba(164, 75, 194, 0.4) 100%);
         }
         
         /* Curved transition SVG */
         .curved-transition {
-            fill: linear-gradient(135deg, #fb923c, #ef4444, #3b82f6);
+            fill: linear-gradient(135deg, #4179f3, #6f4bd4, #a44bc2);
+        }
+        
+        /* Theme-specific styles */
+        .theme-cinematic-dark #cinematic-video {
+            background: linear-gradient(135deg, rgba(55, 65, 81, 0.4) 0%, rgba(17, 24, 39, 0.3) 50%, rgba(0, 0, 0, 0.4) 100%);
+        }
+        
+        .theme-color-pop #cinematic-video {
+            background: linear-gradient(135deg, rgba(236, 72, 153, 0.4) 0%, rgba(251, 191, 36, 0.3) 50%, rgba(79, 70, 229, 0.4) 100%);
+        }
+        
+        .theme-frosted-glass #cinematic-video {
+            background: linear-gradient(135deg, rgba(219, 234, 254, 0.6) 0%, rgba(191, 219, 254, 0.5) 50%, rgba(147, 197, 253, 0.6) 100%);
+        }
+        
+        .theme-radial-glow #cinematic-video {
+            background: radial-gradient(circle at center, rgba(254, 243, 199, 0.4) 0%, rgba(253, 230, 138, 0.3) 50%, rgba(243, 232, 255, 0.4) 100%);
         }
         
         /* Floating button animations */
@@ -141,6 +161,203 @@
     </div>
 
     <script>
+        // Theme Management System
+        const themes = {
+            'cinematic-dark': {
+                name: '🎬 Cinematic Dark',
+                bodyClass: 'bg-gradient-to-br from-gray-900 to-black',
+                headerClass: 'bg-gray-800/90',
+                sectionClass: 'bg-gray-800/20',
+                textGradient: 'from-gray-200 to-gray-400',
+                textColor: 'text-gray-100'
+            },
+            'color-pop': {
+                name: '🌈 Color Pop Gradient',
+                bodyClass: 'bg-gradient-to-br from-pink-500 via-yellow-400 to-indigo-600',
+                headerClass: 'bg-pink-900/90',
+                sectionClass: 'bg-white/20',
+                textGradient: 'from-pink-200 to-yellow-200',
+                textColor: 'text-white'
+            },
+            'frosted-glass': {
+                name: '🧊 Frosted Glass',
+                bodyClass: 'bg-gradient-to-br from-blue-100 via-blue-200 to-blue-300',
+                headerClass: 'bg-white/80',
+                sectionClass: 'bg-white/30',
+                textGradient: 'from-blue-600 to-blue-800',
+                textColor: 'text-blue-900'
+            },
+            'purple-blue': {
+                name: '🔵 Purple-Blue Wave',
+                bodyClass: 'bg-gradient-to-br from-[#4179f3] via-[#6f4bd4] to-[#a44bc2]',
+                headerClass: 'bg-[#3a3a72]/90',
+                sectionClass: 'bg-white/20',
+                textGradient: 'from-blue-200 to-purple-200',
+                textColor: 'text-white'
+            },
+            'radial-glow': {
+                name: '🌀 Radial Soft Glow',
+                bodyClass: 'bg-gradient-radial from-yellow-200 via-orange-200 to-pink-300',
+                headerClass: 'bg-orange-800/90',
+                sectionClass: 'bg-white/25',
+                textGradient: 'from-orange-600 to-pink-600',
+                textColor: 'text-orange-900'
+            },
+            'ocean-breeze': {
+                name: '🌊 Ocean Breeze',
+                bodyClass: 'bg-gradient-to-br from-teal-400 via-blue-500 to-cyan-400',
+                headerClass: 'bg-teal-800/90',
+                sectionClass: 'bg-white/20',
+                textGradient: 'from-teal-200 to-blue-200',
+                textColor: 'text-white'
+            },
+            'frosted-glass-enhanced': {
+                name: '🧊 Frosted Glass Enhanced',
+                bodyClass: 'bg-white/20 backdrop-blur-xl',
+                headerClass: 'bg-white/80',
+                sectionClass: 'bg-white/30',
+                textGradient: 'from-gray-600 to-gray-800',
+                textColor: 'text-gray-900'
+            },
+            'sunset-flow': {
+                name: '🌅 Sunset Flow',
+                bodyClass: 'bg-gradient-to-br from-orange-500 via-pink-500 to-purple-500',
+                headerClass: 'bg-orange-900/90',
+                sectionClass: 'bg-white/20',
+                textGradient: 'from-orange-200 to-purple-200',
+                textColor: 'text-white'
+            },
+            'cinematic-dark-enhanced': {
+                name: '🌓 Cinematic Dark Enhanced',
+                bodyClass: 'bg-gradient-to-br from-gray-900 to-black',
+                headerClass: 'bg-gray-800/90',
+                sectionClass: 'bg-gray-800/20',
+                textGradient: 'from-gray-200 to-gray-400',
+                textColor: 'text-gray-100'
+            },
+            'retro-neon': {
+                name: '🪩 Retro Neon',
+                bodyClass: 'bg-gradient-to-br from-fuchsia-600 via-purple-500 to-yellow-400',
+                headerClass: 'bg-fuchsia-900/90',
+                sectionClass: 'bg-white/20',
+                textGradient: 'from-fuchsia-200 to-yellow-200',
+                textColor: 'text-white'
+            },
+            'midnight-blend': {
+                name: '🌙 Midnight Blend',
+                bodyClass: 'bg-gradient-to-br from-gray-900 to-slate-800',
+                headerClass: 'bg-gray-800/90',
+                sectionClass: 'bg-gray-800/20',
+                textGradient: 'from-gray-100 to-gray-300',
+                textColor: 'text-gray-100'
+            },
+            'cyber-grape': {
+                name: '🔮 Cyber Grape',
+                bodyClass: 'bg-gradient-to-br from-[#2c003e] via-[#28002e] to-[#15001f]',
+                headerClass: 'bg-[#2c003e]/90',
+                sectionClass: 'bg-fuchsia-900/20',
+                textGradient: 'from-fuchsia-200 to-purple-200',
+                textColor: 'text-fuchsia-200'
+            },
+            'dark-frost': {
+                name: '🧊 Dark Frost',
+                bodyClass: 'bg-black',
+                headerClass: 'bg-black/90',
+                sectionClass: 'bg-white/10 backdrop-blur border border-white/20 rounded-xl shadow',
+                textGradient: 'from-white to-gray-200',
+                textColor: 'text-white'
+            },
+            'deep-space': {
+                name: '🌌 Deep Space Purple',
+                bodyClass: 'bg-gradient-to-br from-[#1a0735] to-[#3f1c5c]',
+                headerClass: 'bg-[#1a0735]/90',
+                sectionClass: 'bg-purple-900/20',
+                textGradient: 'from-purple-200 to-indigo-200',
+                textColor: 'text-purple-200'
+            },
+            'slate-fade': {
+                name: '🎧 Slate Fade',
+                bodyClass: 'bg-gradient-to-br from-slate-800 to-gray-900',
+                headerClass: 'bg-slate-800/90',
+                sectionClass: 'bg-slate-700/20',
+                textGradient: 'from-gray-200 to-slate-200',
+                textColor: 'text-gray-200'
+            }
+        };
+
+        // Function to apply theme
+        function applyTheme(themeKey) {
+            const theme = themes[themeKey];
+            if (!theme) return;
+
+            const body = document.body;
+            
+            // Remove all existing theme classes
+            Object.keys(themes).forEach(key => {
+                body.classList.remove(`theme-${key}`);
+            });
+            
+            // Remove existing background classes
+            body.className = body.className.replace(/bg-gradient-\S+/g, '').replace(/from-\S+/g, '').replace(/via-\S+/g, '').replace(/to-\S+/g, '').trim();
+            
+            // Apply new theme
+            body.classList.add(`theme-${themeKey}`);
+            body.classList.add('min-h-screen');
+            
+            // Apply background classes
+            const bgClasses = theme.bodyClass.split(' ');
+            bgClasses.forEach(cls => body.classList.add(cls));
+            
+            // Apply text color
+            body.classList.add(theme.textColor);
+            
+            // Update section styling
+            updateSectionStyling(theme);
+            
+            // Update text gradients
+            updateTextGradients(theme);
+        }
+
+        // Function to update section styling
+        function updateSectionStyling(theme) {
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => {
+                // Remove existing background classes
+                section.className = section.className.replace(/bg-white\/\d+/g, '').replace(/bg-gray-\S+/g, '').trim();
+                
+                // Add new section styling
+                const sectionClasses = theme.sectionClass.split(' ');
+                sectionClasses.forEach(cls => section.classList.add(cls));
+                
+                // Ensure other classes remain
+                if (!section.classList.contains('backdrop-blur-xl')) {
+                    section.classList.add('backdrop-blur-xl', 'rounded-2xl', 'shadow-2xl', 'border', 'border-white/30', 'p-8', 'mb-8', 'hover:bg-white/25', 'transition-all', 'duration-300');
+                }
+            });
+        }
+
+        // Function to update text gradients
+        function updateTextGradients(theme) {
+            const gradientTexts = document.querySelectorAll('.bg-gradient-to-r');
+            gradientTexts.forEach(element => {
+                // Remove existing gradient classes
+                element.className = element.className.replace(/from-\S+/g, '').replace(/to-\S+/g, '').trim();
+                
+                // Add new gradient classes
+                const gradientClasses = theme.textGradient.split(' ');
+                gradientClasses.forEach(cls => element.classList.add(`bg-gradient-to-r`, cls));
+            });
+        }
+
+        // Load and apply theme on page load
+        function loadTheme() {
+            const savedTheme = localStorage.getItem('cinematch-theme') || 'purple-blue';
+            applyTheme(savedTheme);
+        }
+
+        // Apply theme immediately (before DOM is fully loaded)
+        loadTheme();
+
         // Provide header interactions for dynamically-inserted header.html
         function initHeaderInteractions() {
             const userDropdown = document.querySelector('.user-dropdown');
