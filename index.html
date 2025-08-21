@@ -57,6 +57,105 @@
         .animate-float {
             animation: float 3s ease-in-out infinite;
         }
+        
+        /* Theme Midnight Styles */
+        .theme-midnight {
+            background: linear-gradient(135deg, #581c87 0%, #7c2d92 50%, #be185d 100%) !important;
+        }
+        
+        .theme-midnight h2 {
+            background: linear-gradient(to right, #fce7f3, #ddd6fe) !important;
+            -webkit-background-clip: text !important;
+            background-clip: text !important;
+            color: transparent !important;
+        }
+        
+        .theme-midnight .text-orange-100 {
+            color: #fce7f3 !important;
+        }
+        
+        .theme-midnight #cinematic-video {
+            background: linear-gradient(135deg, rgba(88, 28, 135, 0.4) 0%, rgba(124, 45, 146, 0.3) 50%, rgba(190, 24, 93, 0.4) 100%) !important;
+        }
+        
+        .theme-midnight .bg-gradient-to-br {
+            background: linear-gradient(135deg, rgba(124, 45, 146, 0.8) 0%, rgba(190, 24, 93, 0.8) 100%) !important;
+        }
+        
+        .theme-midnight .bg-orange-500\/80 {
+            background: rgba(124, 45, 146, 0.8) !important;
+        }
+        
+        .theme-midnight .border-orange-400\/50 {
+            border-color: rgba(236, 72, 153, 0.5) !important;
+        }
+        
+        .theme-midnight .text-orange-200 {
+            color: #fce7f3 !important;
+        }
+        
+        .theme-midnight .hover\:bg-orange-600\/30:hover {
+            background: rgba(190, 24, 93, 0.3) !important;
+        }
+        
+        .theme-midnight .bg-gradient-to-r.from-orange-200.to-yellow-200 {
+            background: linear-gradient(to right, #fce7f3, #ddd6fe) !important;
+        }
+        
+        .theme-midnight .from-orange-300\/40 {
+            --tw-gradient-from: rgba(124, 45, 146, 0.4) !important;
+        }
+        
+        .theme-midnight .via-red-400\/30 {
+            --tw-gradient-via: rgba(190, 24, 93, 0.3) !important;
+        }
+        
+        .theme-midnight .to-purple-600\/40 {
+            --tw-gradient-to: rgba(88, 28, 135, 0.4) !important;
+        }
+        
+        /* Theme Midnight Section Styles */
+        .theme-midnight section {
+            background: linear-gradient(to right, rgba(124, 45, 146, 0.8), rgba(190, 24, 93, 0.8)) !important;
+            backdrop-filter: blur(16px) !important;
+            border: 1px solid rgba(236, 72, 153, 0.3) !important;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(236, 72, 153, 0.1) !important;
+        }
+        
+        .theme-midnight section:hover {
+            background: linear-gradient(to right, rgba(124, 45, 146, 0.9), rgba(190, 24, 93, 0.9)) !important;
+        }
+        
+        .theme-midnight section h3 {
+            background: linear-gradient(to right, #fce7f3, #ddd6fe) !important;
+            -webkit-background-clip: text !important;
+            background-clip: text !important;
+            color: transparent !important;
+        }
+        
+        /* Theme Midnight Button Styles */
+        .theme-midnight button {
+            background: linear-gradient(to right, #ec4899, #8b5cf6) !important;
+            border: 1px solid rgba(236, 72, 153, 0.5) !important;
+        }
+        
+        .theme-midnight button:hover {
+            background: linear-gradient(to right, rgba(236, 72, 153, 0.3), rgba(139, 92, 246, 0.3)) !important;
+        }
+        
+        /* Theme Midnight Card Styles */
+        .theme-midnight .movie-card,
+        .theme-midnight .flex-none {
+            background: linear-gradient(135deg, rgba(124, 45, 146, 0.4), rgba(190, 24, 93, 0.4)) !important;
+            backdrop-filter: blur(8px) !important;
+            border: 1px solid rgba(236, 72, 153, 0.3) !important;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
+        }
+        
+        .theme-midnight .movie-card:hover,
+        .theme-midnight .flex-none:hover {
+            box-shadow: 0 25px 50px -12px rgba(236, 72, 153, 0.25) !important;
+        }
     </style>
 </head>
 <body class="bg-gradient-to-br from-orange-400 via-red-500 to-blue-900 min-h-screen text-white">
@@ -282,6 +381,14 @@
                 sectionClass: 'bg-slate-700/20',
                 textGradient: 'from-gray-200 to-slate-200',
                 textColor: 'text-gray-200'
+            },
+            'midnight': {
+                name: '🌙 Midnight Elegance',
+                bodyClass: 'bg-gradient-to-br from-violet-900 via-purple-800 to-pink-700',
+                headerClass: 'bg-purple-900/90',
+                sectionClass: 'bg-gradient-to-r from-purple-900/80 to-pink-900/80 backdrop-blur-lg border border-pink-500/30',
+                textGradient: 'from-pink-200 to-violet-200',
+                textColor: 'text-white'
             }
         };
 
