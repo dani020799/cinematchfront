@@ -686,6 +686,17 @@
             initCinematicVideo();
         });
     </script>
+<script>
+    async function rateMovie(title) {
+      const res = await fetch('rate_popup.html');
+      const html = await res.text();
+      const wrapper = document.createElement('div');
+      wrapper.innerHTML = html;
+      document.body.appendChild(wrapper);
+      const popupTitle = wrapper.querySelector('#popup-title');
+      if (popupTitle) popupTitle.textContent = 'Rate: ' + title;
+    }
+  </script>
 </body>
 </html>
 
