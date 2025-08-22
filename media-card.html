@@ -1,3 +1,4 @@
+<!-- Media Card Template: works both as a dynamically-fetched fragment and as a standalone page -->
 <a href="/movie/123" class="group block w-full max-w-[12rem]">
   <div class="relative bg-white/20 backdrop-blur-xl rounded-2xl shadow-2xl hover:shadow-3xl border border-white/30 overflow-hidden transform transition duration-300 hover:scale-[1.05] hover:bg-white/25 p-0">
     <!-- Poster -->
@@ -10,7 +11,7 @@
       
       <!-- Bookmark Button -->
       <button 
-        onclick="toggleBookmark(this); event.preventDefault(); event.stopPropagation();"
+        onclick="toggleBookmark && toggleBookmark(this); event.preventDefault(); event.stopPropagation();"
         class="absolute top-2 left-2 bg-white/20 hover:bg-blue-500 hover:text-white text-white p-1 rounded-full transition z-10"
         title="Bookmark this movie"
       >
@@ -38,7 +39,7 @@
       
       <!-- My Rating Button -->
       <button 
-        onclick="rateMovie('Guardians of the Galaxy Vol. 3'); event.preventDefault(); event.stopPropagation();"
+        onclick="rateMovie && rateMovie('Guardians of the Galaxy Vol. 3'); event.preventDefault(); event.stopPropagation();"
         class="text-blue-400 hover:text-blue-300 text-sm font-semibold flex items-center mt-2 transition"
         title="Rate this movie"
       >
@@ -51,12 +52,68 @@
   </div>
 </a>
 
+<!-- Standalone enhancer: only runs when this file is opened directly in the browser.
+     When fetched into index.html, only the <a> card above is inserted and this script is ignored. -->
 <script>
-function toggleBookmark(el) {
-  el.classList.toggle('text-blue-400');
-  el.classList.toggle('text-white');
-}
-function rateMovie(title) {
-  alert("Rating: " + title);
-}
+(function () {
+  // If this card is embedded via fetch/template, there will not be a full document to enhance.
+  // Run only when opened directly (best-effort check):
+  if (window.top !== window) return; // inside an iframe
+  // If the first element on the page is not the card link, it likely isn't our standalone load.
+  var card = document.querySelector('a.group');
+  if (!card) return;
+
+  // Ensure Tailwind is available. If not, load it dynamically.
+  function ensureTailwind(cb) {
+    if (window.tailwind) { cb(); return; }
+    var s = document.createElement('script');
+    s.src = 'https://cdn.tailwindcss.com';
+    s.async = true;
+    s.onload = cb;
+    document.head.appendChild(s);
+  }
+
+  function applyBaseStyles() {
+    // Add base font and page background similar to index.html
+    document.body.classList.add('bg-gradient-to-br','from-orange-400','via-red-500','to-blue-900','min-h-screen','text-white');
+    var style = document.createElement('style');
+    style.textContent = "body{font-family:'Inter',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif}";
+    document.head.appendChild(style);
+
+    // Build a centered container and place the card inside
+    var outer = document.createElement('div');
+    outer.className = 'min-h-screen flex items-center justify-center p-8';
+
+    var frame = document.createElement('div');
+    frame.className = 'max-w-7xl mx-auto';
+
+    // Insert before altering DOM to keep script execution stable
+    document.body.innerHTML = '';
+    frame.appendChild(card);
+    outer.appendChild(frame);
+    document.body.appendChild(outer);
+
+    // Optional title
+    document.title = 'Cinematch • Media Card';
+
+    // Fallback handlers so buttons don\'t error when opened standalone
+    window.toggleBookmark = window.toggleBookmark || function (el) {
+      el.classList.toggle('ring-2');
+      el.classList.toggle('ring-blue-400');
+    };
+
+    window.rateMovie = window.rateMovie || function (title) {
+      // Lightweight integration: fetch the popup and show it
+      fetch('rate_popup.html').then(r=>r.text()).then(function (html) {
+        var c = document.createElement('div');
+        c.innerHTML = html;
+        document.body.appendChild(c);
+        var titleEl = c.querySelector('#popup-title');
+        if (titleEl) titleEl.textContent = 'Rate: ' + title;
+      }).catch(console.error);
+    };
+  }
+
+  ensureTailwind(applyBaseStyles);
+})();
 </script>
